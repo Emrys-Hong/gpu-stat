@@ -4,7 +4,9 @@ import csv
 import time
 import psutil
 import socket
-from py3nvml.py3nvml import *
+from py3nvml.py3nvml import (
+    nvmlInit, nvmlShutdown,
+    nvmlDeviceGetCount, nvmlDeviceGetHandleByIndex, nvmlDeviceGetComputeRunningProcesses)
 
 def get_gpu_usage():
     nvmlInit()
@@ -17,13 +19,18 @@ def get_gpu_usage():
         process_info_list = nvmlDeviceGetComputeRunningProcesses(device_handle)
         for process_info in process_info_list:
             pid = process_info.pid
+
             used_memory = process_info.usedGpuMemory
-            process_name = nvmlSystemGetProcessName(pid)
+
+            ps_process = psutil.Process(pid)
+            command = " ".join(ps_process.cmdline())
 
             process = psutil.Process(pid)
             user = pwd.getpwuid(process.uids().real).pw_name
 
-            gpu_usage.append({'user': user, 'program_name': process_name, 'memory_usage': used_memory})
+            gpu_usage.append(
+                {'user': user, 'command': command, 'memory_usage': used_memory//1024//1024}
+            )
 
     nvmlShutdown()
     return gpu_usage
