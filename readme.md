@@ -18,3 +18,6 @@ Run this in a crontab job by `crontab -e`
 */1 * * * * rsync -avz --progress 231:~/G/gpu-stat/172.18.240.231_gpu_log.csv ~/G/gpu-stat/
 */1 * * * * rsync -avz --progress 253:~/G/gpu-stat/172.17.240.253_gpu_log.csv ~/G/gpu-stat/
 ```
+
+
+Run `streamlit run main.py --server.port 8080`

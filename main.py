@@ -17,7 +17,7 @@ ip_list = [
 st.title("DeCLaRe Admin GPU Monitoring")
 chart_option = st.selectbox( "Select Machine: ", ['Total']+ip_list )
 per_user = st.checkbox('Show individual user usage', value=False)
-time_span = st.radio('Usage History in Days', ('1', '3', '7'))
+time_span = st.radio('Usage History in Days', ('1', '3', '7', '30'))
 
 def create_line_chart(ip):
     if ip == "Total":
