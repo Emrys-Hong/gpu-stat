@@ -36,7 +36,7 @@ def get_gpu_usage():
     return gpu_usage
 
 def log_gpu_usage_to_csv(gpu_usage, file_path):
-    header = ['date', 'time', 'user', 'program_name', 'memory_usage']
+    header = ['date', 'time', 'user', 'command', 'memory_usage']
 
     file_exists = os.path.isfile(file_path)
 
